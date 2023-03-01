@@ -17,28 +17,30 @@ async function main() {
     const data = await getData();
     const filters = await getDataFilter();
     displayData(data);
-    displayDataFilters(filters);
+    displayData(filters);
   } catch (error) {
     console.error("Une erreur s'est produite", error);
   }
 }
 
 function displayData(data) {
+  const sectionGallery = document.getElementById("gallery");
+
   for (let elem of data) {
     const figure = document.createElement("figure");
     const imageElement = document.createElement("img");
     imageElement.src = elem.imageUrl;
     const nomElement = document.createElement("figcaption");
     nomElement.textContent = elem.title;
-    const sectionGallery = document.getElementById("gallery");
 
     sectionGallery.appendChild(figure);
     figure.appendChild(imageElement);
     figure.appendChild(nomElement);
   }
+  //console.log(data);
 }
 
-//Filtres//
+// Filtres //
 const getDataFilter = async () => {
   try {
     const response = await fetch("http://localhost:5678/api/categories");
@@ -46,7 +48,7 @@ const getDataFilter = async () => {
       throw new Error("Erreur de réponse du serveur");
     }
     const dataF = await response.json();
-    console.log(dataF);
+    //console.log(dataF);
     return dataF;
   } catch (error) {
     console.error("Une erreur s'est produite", error);
@@ -54,18 +56,66 @@ const getDataFilter = async () => {
   }
 };
 
-const baliseMain = document.querySelector("main");
-const section = document.createElement("section");
-section.id = "Filtres";
-baliseMain.appendChild(section);
-const ul = document.createElement("ul");
-section.appendChild(ul);
-
-function displayDataFilters(dataf) {
-  for (let elem of dataf) {
-    const li = document.createElement("li");
-    li.textContent = elem.name;
-    ul.appendChild(li);
-  }
-}
 main();
+
+// Button //
+const boutonFilter = document.querySelector(".filter-objets");
+boutonFilter.addEventListener("click", async () => {
+  try {
+    const data = await getData();
+    const objetsFilter = data.filter((elem) => elem.categoryId === 1);
+    const sectionGallery = document.getElementById("gallery");
+    sectionGallery.innerHTML = ""; // Vider le contenu de la sectionGallery
+    displayData(objetsFilter); // Afficher uniquement les éléments filtrés
+  } catch (error) {
+    console.error("Une erreur s'est produite", error);
+  }
+});
+
+const boutonObjet = document.querySelector(".filter-objets");
+boutonFilter.addEventListener("click", async () => {
+  try {
+    const data = await getData();
+    const objetsFilter = data.filter((elem) => elem.categoryId === 1);
+    //console.log(objetsFilter);
+    const sectionGallery = document.getElementById("gallery");
+    sectionGallery.innerHTML = ""; // Vider le contenu de la sectionGallery
+    displayData(objetsFilter); // Afficher uniquement les éléments filtrés
+  } catch (error) {
+    console.error("Une erreur s'est produite", error);
+  }
+});
+const boutonApp = document.querySelector(".filter-appartements");
+boutonApp.addEventListener("click", async () => {
+  try {
+    const data = await getData();
+    const appFilter = data.filter((elem) => elem.categoryId === 2);
+    //console.log(appFilter);
+    const sectionGallery = document.getElementById("gallery");
+    sectionGallery.innerHTML = ""; // Vider le contenu de la sectionGallery
+    displayData(appFilter); // Afficher uniquement les éléments filtrés
+  } catch (error) {
+    console.error("Une erreur s'est produite", error);
+  }
+});
+const boutonHotel = document.querySelector(".filter-hotelsrestaurants");
+console.log(boutonHotel);
+boutonHotel.addEventListener("click", async () => {
+  try {
+    const data = await getData();
+    const hotelFilter = data.filter((elem) => elem.categoryId === 3);
+    //console.log(hotelFilter);
+    const sectionGallery = document.getElementById("gallery");
+    sectionGallery.innerHTML = ""; // Vider le contenu de la sectionGallery
+    displayData(hotelFilter); // Afficher uniquement les éléments filtrés
+  } catch (error) {
+    console.error("Une erreur s'est produite", error);
+  }
+});
+const boutonTous = document.querySelector(".filter-tous");
+boutonTous.addEventListener("click", async () => {
+  const sectionGallery = document.getElementById("gallery");
+  const data = await getData();
+  sectionGallery.innerHTML = "";
+  displayData(data);
+});
