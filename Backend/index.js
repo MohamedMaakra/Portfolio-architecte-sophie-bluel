@@ -5,6 +5,7 @@ const getData = async () => {
       throw new Error("Erreur de réponse du serveur");
     }
     const data = await response.json();
+    //console.log(data);
     return data;
   } catch (error) {
     console.error("Une erreur s'est produite", error);
@@ -119,3 +120,67 @@ boutonTous.addEventListener("click", async () => {
   sectionGallery.innerHTML = "";
   displayData(data);
 });
+
+// login//
+const log = document.querySelector("#log");
+const login = document.querySelector("#login");
+const sections = document.getElementsByTagName("section");
+
+let isModified = false;
+let initialStyles = []; // Stocker les styles initiaux des sections
+
+// Stocker les styles initiaux des sections
+for (let i = 0; i < sections.length; i++) {
+  initialStyles.push(sections[i].style.display);
+}
+console.log(initialStyles);
+log.addEventListener("click", (e) => {
+  if (!isModified) {
+    // Si la page n'a pas été modifiée
+    for (let i = 0; i < sections.length; i++) {
+      if (i === 3) {
+        break;
+      }
+      const section = sections[i];
+      section.style.display = "none";
+      //console.log(section);
+    }
+    login.style.display = null;
+
+    isModified = true; // Changer l'état de la page à modifié
+    //console.log(initialStyles);
+  } else {
+    // Si la page a déjà été modifiée
+    for (let i = 0; i < sections.length; i++) {
+      const section = sections[i];
+      section.style.display = initialStyles[i]; // Restaurer le style initial
+    }
+    login.style.display = "none"; // Cacher le login
+
+    isModified = false; // Changer l'état de la page à non modifié
+  }
+});
+
+/*const form = document.querySelector("#login-form");
+const emailInput = document.querySelector("#email");
+const passwordInput = document.querySelector("#password");
+const resultDiv = document.querySelector("#result");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  console.log(email);
+  try {
+    const response = await fetch("http://localhost:5678/api/users/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Adresse e-mail ou mot de passe invalide");
+    }
+  } catch (error) { }
+});*/

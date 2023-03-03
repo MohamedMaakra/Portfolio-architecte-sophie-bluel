@@ -287,3 +287,29 @@ input[type="button"]:hover {
   color: white;
   cursor: pointer;
 }
+
+#login {
+  width: 50%;
+  margin: auto;
+}
+
+#login h2 {
+  text-align: center;
+}
+
+#login form {
+  display: flex;
+  flex-direction: column;
+}
+#login input {
+  height: 45px;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#login label {
+  padding-top: 30px;
+  padding-bottom: 7px;
+}
+#login a {
+  text-align: center;
+}
