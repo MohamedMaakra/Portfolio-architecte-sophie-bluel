@@ -161,26 +161,28 @@ log.addEventListener("click", (e) => {
   }
 });
 
-/*const form = document.querySelector("#login-form");
-const emailInput = document.querySelector("#email");
-const passwordInput = document.querySelector("#password");
-const resultDiv = document.querySelector("#result");
+let inputEmail = document.querySelector("#email1").value;
+let inputPass = document.querySelector("#password").value;
+const submit = document.querySelector("submit1");
 
-form.addEventListener("submit", async (e) => {
+submit.addEventListener("submit", async (e) => {
   e.preventDefault();
+  console.log(submit);
+  const user = {
+    email: inputEmail,
+    password: inputPass,
+  };
+  console.log(user);
 
-  const email = emailInput.value;
-  const password = passwordInput.value;
-  console.log(email);
   try {
     const response = await fetch("http://localhost:5678/api/users/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ user }),
     });
 
     if (!response.ok) {
       throw new Error("Adresse e-mail ou mot de passe invalide");
     }
-  } catch (error) { }
-});*/
+  } catch (error) {}
+});
