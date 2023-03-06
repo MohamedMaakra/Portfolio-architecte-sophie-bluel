@@ -5,7 +5,7 @@ const getData = async () => {
       throw new Error("Erreur de réponse du serveur");
     }
     const data = await response.json();
-    //console.log(data);
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Une erreur s'est produite", error);
@@ -34,9 +34,9 @@ function displayData(data) {
     const nomElement = document.createElement("figcaption");
     nomElement.textContent = elem.title;
 
-    sectionGallery.appendChild(figure);
     figure.appendChild(imageElement);
     figure.appendChild(nomElement);
+    sectionGallery.appendChild(figure);
   }
   //console.log(data);
 }
